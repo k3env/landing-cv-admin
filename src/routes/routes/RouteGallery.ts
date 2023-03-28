@@ -1,13 +1,20 @@
 import { createRoute, chainRoute } from "atomic-router";
-import { fx_getImages } from "../../stores/storeImages";
+import { esImages } from "../../stores";
+import { PageGallery } from "../../pages";
 const RouteGallery = createRoute();
 
 const RouteGalleryLoaded = chainRoute({
   route: RouteGallery,
   beforeOpen: {
-    effect: fx_getImages,
+    effect: esImages.list,
     mapParams: ({}) => {},
   },
 });
+const path = "/gallery";
 
-export { RouteGallery, RouteGalleryLoaded };
+export {
+  RouteGallery as route,
+  RouteGalleryLoaded as loaded,
+  path,
+  PageGallery as view,
+};

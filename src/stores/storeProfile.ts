@@ -1,5 +1,5 @@
 import { createEffect, restore } from "effector";
-import { Profile } from "../models/Profile.model";
+import { Profile } from "../models";
 
 const fx_getProfile = createEffect<void, Profile>(() =>
   fetch("http://localhost:3000/api/v1/profile/")
@@ -26,4 +26,4 @@ $profile.on(fx_getProfile.doneData, (s, p) => {
   return p;
 });
 
-export { $profile, fx_getProfile, fx_updateProfile };
+export { $profile as store, fx_getProfile as get, fx_updateProfile as update };

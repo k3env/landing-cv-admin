@@ -1,14 +1,16 @@
 import { createRoutesView } from "atomic-router-react";
 import { createHistoryRouter } from "atomic-router";
 import { createBrowserHistory } from "history";
-import { RouteHome, RouteGallery, RouteProfile } from "./routes";
-import { PageGallery, PageHome, PageNotFound, PageProfile } from "../pages";
+import { Home, Gallery, Profile, Tags } from "./routes";
+
+import { PageNotFound } from "../pages";
 
 const RoutesView = createRoutesView({
   routes: [
-    { route: RouteHome, view: PageHome },
-    { route: RouteGallery, view: PageGallery },
-    { route: RouteProfile, view: PageProfile },
+    { route: Home.route, view: Home.view },
+    { route: Gallery.route, view: Gallery.view },
+    { route: Profile.route, view: Profile.view },
+    { route: Tags.route, view: Tags.view },
   ],
   otherwise() {
     return <PageNotFound />;
@@ -16,15 +18,10 @@ const RoutesView = createRoutesView({
 });
 
 const routes = [
-  {
-    path: "/",
-    route: RouteHome,
-  },
-  {
-    path: "/gallery",
-    route: RouteGallery,
-  },
-  { path: "/profile", route: RouteProfile },
+  { path: Home.path, route: Home.route },
+  { path: Gallery.path, route: Gallery.route },
+  { path: Profile.path, route: Profile.route },
+  { path: Tags.path, route: Tags.route },
 ];
 
 const history = createBrowserHistory();

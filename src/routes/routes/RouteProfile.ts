@@ -1,12 +1,12 @@
 import { chainRoute, createRoute } from "atomic-router";
-import { fx_getImages } from "../../stores/storeImages";
-import { fx_getProfile } from "../../stores/storeProfile";
+import { PageProfile } from "../../pages";
+import { esImages, esProfile } from "../../stores";
 const RouteProfile = createRoute();
 
 const RouteProfileLoaded = chainRoute({
   route: RouteProfile,
   beforeOpen: {
-    effect: fx_getProfile,
+    effect: esProfile.get,
     mapParams: () => {},
   },
 });
@@ -14,9 +14,16 @@ const RouteProfileLoaded = chainRoute({
 const RouteProfileImagesLoaded = chainRoute({
   route: RouteProfileLoaded,
   beforeOpen: {
-    effect: fx_getImages,
+    effect: esImages.list,
     mapParams: () => {},
   },
 });
 
-export { RouteProfile, RouteProfileLoaded, RouteProfileImagesLoaded };
+const path = "/profile";
+
+export {
+  RouteProfile as route,
+  RouteProfileImagesLoaded as loaded,
+  PageProfile as view,
+  path,
+};

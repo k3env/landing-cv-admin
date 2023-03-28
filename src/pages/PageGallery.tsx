@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FormEvent, useState } from "react";
 import { useStore } from "effector-react";
-import { $images, fx_addImage, fx_deleteImage } from "../stores/storeImages";
-import { File } from "../models/File.model";
-import { RouteGalleryLoaded } from "../routes/routes/RouteGallery";
-import { Loading } from "../components/Loading";
+import { esImages } from "../stores";
+import { File } from "../models";
+import { Gallery as Route } from "../routes/routes";
+import { Loading } from "../components";
 
 export function PageGallery(props: {}) {
-  const imgs = useStore($images);
-  const routeLoaded = useStore(RouteGalleryLoaded.$isOpened);
+  const imgs = useStore(esImages.store);
+  const routeLoaded = useStore(Route.loaded.$isOpened);
   if (!routeLoaded) {
     return <Loading />;
   }
@@ -34,7 +34,7 @@ function GalleryCard(props: { file: File }) {
   const handleClose = () => setShow(false);
   const handleConfirm = () => {
     setShow(false);
-    fx_deleteImage(props.file._id);
+    esImages.delete(props.file._id);
   };
   const handleShow = () => setShow(true);
   return (
@@ -72,7 +72,7 @@ function UploadForm(props: {}) {
       .files as FileList;
 
     fd.append("file", files[0], files[0].name);
-    fx_addImage(fd);
+    esImages.add(fd);
   };
   return (
     <form onSubmit={(e) => handleSubmit(e)}>

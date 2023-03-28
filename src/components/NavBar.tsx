@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "atomic-router-react";
-import { RouteGallery, RouteHome, RouteProfile } from "../routes/routes";
+import { Home, Profile, Tags, Gallery } from "../routes/routes";
 
 export function NavBar(props: {}) {
   return (
@@ -13,14 +13,17 @@ export function NavBar(props: {}) {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to={RouteHome}>
+            <Nav.Link as={Link} to={Home.route}>
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to={RouteGallery}>
+            <Nav.Link as={Link} to={Gallery.route}>
               Gallery
             </Nav.Link>
-            <Nav.Link as={Link} to={RouteProfile}>
+            <Nav.Link as={Link} to={Profile.route}>
               Profile
+            </Nav.Link>
+            <Nav.Link as={Link} to={Tags.route}>
+              Tags
             </Nav.Link>
             {/* <NavDropdown title="Dropdown" id="nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

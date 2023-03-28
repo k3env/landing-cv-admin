@@ -1,5 +1,6 @@
-import { RouteGallery } from "./RouteGallery";
-import { RouteHome } from "./RouteHome";
-import { RouteProfile } from "./RouteProfile";
+import * as Gallery from "./RouteGallery";
+import * as Home from "./RouteHome";
+import * as Profile from "./RouteProfile";
+import * as Tags from "./RouteTags";
 
-export { RouteHome, RouteGallery, RouteProfile };
+export { Home, Gallery, Profile, Tags };

@@ -1,20 +1,20 @@
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Profile } from "../models/Profile.model";
 import { useForm, SubmitHandler, UseFormRegisterReturn } from "react-hook-form";
 import { useStore } from "effector-react";
-import { $profile, fx_updateProfile } from "../stores/storeProfile";
-import { RouteProfileImagesLoaded } from "../routes/routes/RouteProfile";
-import { Loading } from "../components/Loading";
-import { $images } from "../stores/storeImages";
-import { File } from "../models/File.model";
-import { RouteGallery } from "../routes/routes";
+import { esProfile, esImages } from "../stores";
+import {
+  Profile as ProfileRoute,
+  Gallery as GalleryRoute,
+} from "../routes/routes";
+import { Loading } from "../components";
+import { File, Profile } from "../models";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export function PageProfile(props: {}) {
-  const pdata = useStore($profile);
-  const pageLoaded = useStore(RouteProfileImagesLoaded.$isOpened);
-  if (!pageLoaded) {
+  const pdata = useStore(esProfile.store);
+  const isLoaded = useStore(ProfileRoute.loaded.$isOpened);
+  if (!isLoaded) {
     return <Loading />;
   }
   if (pdata === null) {
@@ -41,8 +41,8 @@ export function ProfileForm(props: { profile: Profile }) {
   const form = useForm<Profile>({
     defaultValues: props.profile,
   });
-  const imgs = useStore($images);
-  const onSubmit: SubmitHandler<Profile> = (data) => fx_updateProfile(data);
+  const imgs = useStore(esImages.store);
+  const onSubmit: SubmitHandler<Profile> = (data) => esProfile.update(data);
   return (
     <Form onSubmit={form.handleSubmit(onSubmit)}>
       <Row>
@@ -99,7 +99,6 @@ export function ProfileForm(props: { profile: Profile }) {
               style={{ minHeight: "17rem" }}
             />
           </Form.Group>
-          {/* <div>{ReactHtmlParser(form.watch("about_summary"))}</div> --- as rendering sample */}
         </Col>
         <Col>
           <ImageSelect
@@ -205,7 +204,7 @@ function ImageSelect(props: {
             ))}
           </Form.Select>
           <Button
-            onClick={() => RouteGallery.open()}
+            onClick={() => GalleryRoute.route.open()}
             variant={"success"}
             style={{ marginTop: "4px" }}
           >
