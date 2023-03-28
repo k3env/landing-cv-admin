@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, NavLink, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Profile } from "../models/Profile.model";
 import { useForm, SubmitHandler, UseFormRegisterReturn } from "react-hook-form";
 import { useStore } from "effector-react";
@@ -7,8 +7,9 @@ import { RouteProfileImagesLoaded } from "../routes/routes/RouteProfile";
 import { Loading } from "../components/Loading";
 import { $images } from "../stores/storeImages";
 import { File } from "../models/File.model";
-import { Link } from "atomic-router-react";
 import { RouteGallery } from "../routes/routes";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export function PageProfile(props: {}) {
   const pdata = useStore($profile);
@@ -67,6 +68,7 @@ export function ProfileForm(props: { profile: Profile }) {
         </Col>
         <Col sm={12}>
           <ImageSelect
+            usePreview
             label="Select profile photo"
             imgs={imgs}
             reg={form.register("profilePhoto")}
@@ -86,20 +88,22 @@ export function ProfileForm(props: { profile: Profile }) {
           </Form.Group>
         </Col>
         <Col sm={12}>
-          {/* <BlockNoteView editor={editor} /> */}
-          {/* <ReactQuill theme="snow" value={value} onChange={setValue} /> */}
-          {/* <Form.Group className="mb-3">
-            <Form.Label>About me (more text)</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              placeholder="Enter some text"
-              {...register("about_summary")}
+          <Form.Group className="mb-3">
+            <Form.Label>About me (summary)</Form.Label>
+            <ReactQuill
+              theme="snow"
+              value={form.watch("about_summary")}
+              onBlur={(range, src, editor) => {
+                form.setValue("about_summary", editor.getHTML());
+              }}
+              style={{ minHeight: "17rem" }}
             />
-          </Form.Group> */}
+          </Form.Group>
+          {/* <div>{ReactHtmlParser(form.watch("about_summary"))}</div> --- as rendering sample */}
         </Col>
         <Col>
           <ImageSelect
+            usePreview
             label="Select About photo"
             imgs={imgs}
             reg={form.register("about_photo")}
@@ -183,13 +187,14 @@ function ImageSelect(props: {
   reg: UseFormRegisterReturn<string>;
   value: string;
   label?: string;
+  usePreview: boolean;
 }) {
   const { imgs, value, reg, label } = props;
 
   const selectedImage = imgs.find((v) => v._id === value);
   return (
     <Row>
-      <Col sm={selectedImage ? 6 : 12}>
+      <Col sm={selectedImage && props.usePreview ? 6 : 12}>
         <Form.Group className="mb-3">
           <Form.Label>{label && label}</Form.Label>
           <Form.Select {...reg}>
@@ -200,8 +205,7 @@ function ImageSelect(props: {
             ))}
           </Form.Select>
           <Button
-            as={Link}
-            to={RouteGallery}
+            onClick={() => RouteGallery.open()}
             variant={"success"}
             style={{ marginTop: "4px" }}
           >
@@ -209,7 +213,7 @@ function ImageSelect(props: {
           </Button>
         </Form.Group>
       </Col>
-      {selectedImage && (
+      {selectedImage && props.usePreview && (
         <Col sm={6}>
           <Card>
             <Card.Img src={selectedImage.url} />
