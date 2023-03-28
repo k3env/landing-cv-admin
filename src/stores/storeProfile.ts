@@ -1,5 +1,5 @@
 import { createEffect, restore } from "effector";
-import { Profile } from "../models";
+import { Profile } from "~models";
 
 const fx_getProfile = createEffect<void, Profile>(() =>
   fetch("http://localhost:3000/api/v1/profile/")

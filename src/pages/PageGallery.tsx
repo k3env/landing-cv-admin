@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FormEvent, useState } from "react";
 import { useStore } from "effector-react";
-import { esImages } from "../stores";
-import { File } from "../models";
-import { Gallery as Route } from "../routes/routes";
-import { Loading } from "../components";
+import { esImages } from "~stores";
+import { File } from "~models";
+import { Gallery as Route } from "~routes";
+import { Loading } from "~components";
 
 export function PageGallery(props: {}) {
   const imgs = useStore(esImages.store);

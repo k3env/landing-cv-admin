@@ -3,7 +3,7 @@ import { createHistoryRouter } from "atomic-router";
 import { createBrowserHistory } from "history";
 import { Home, Gallery, Profile, Tags } from "./routes";
 
-import { PageNotFound } from "../pages";
+import { PageNotFound } from "~pages";
 
 const RoutesView = createRoutesView({
   routes: [

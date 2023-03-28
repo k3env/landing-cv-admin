@@ -1,5 +1,5 @@
 import { createEffect, restore, forward } from "effector";
-import { File } from "../models";
+import { File } from "~models";
 const fx_getImages = createEffect<void, File[]>(() =>
   fetch(`http://localhost:3000/api/v1/files`)
     .then((v) => v.json())

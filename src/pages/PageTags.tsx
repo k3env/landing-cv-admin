@@ -9,10 +9,10 @@ import {
   Row,
   Stack,
 } from "react-bootstrap";
-import { Loading } from "../components";
-import { Tag } from "../models";
-import { Tags as Route } from "../routes/routes";
-import { esTags } from "../stores";
+import { Loading } from "~components";
+import { Tag } from "~models";
+import { Tags as Route } from "~routes";
+import { esTags } from "~stores";
 
 export function PageTags(props: {}) {
   const tags = useStore(esTags.store);

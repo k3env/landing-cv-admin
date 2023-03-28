@@ -1,13 +1,10 @@
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm, SubmitHandler, UseFormRegisterReturn } from "react-hook-form";
 import { useStore } from "effector-react";
-import { esProfile, esImages } from "../stores";
-import {
-  Profile as ProfileRoute,
-  Gallery as GalleryRoute,
-} from "../routes/routes";
-import { Loading } from "../components";
-import { File, Profile } from "../models";
+import { esProfile, esImages } from "~stores";
+import { Profile as ProfileRoute, Gallery as GalleryRoute } from "~routes";
+import { Loading } from "~components";
+import { File, Profile } from "~models";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 

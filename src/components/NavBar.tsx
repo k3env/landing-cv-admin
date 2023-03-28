@@ -1,14 +1,13 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "atomic-router-react";
-import { Home, Profile, Tags, Gallery } from "../routes/routes";
+import { Home, Profile, Tags, Gallery } from "~routes";
 
 export function NavBar(props: {}) {
   return (
     <Navbar bg="light" expand="lg" className="shadow" sticky="top">
       <Container>
         <Navbar.Brand href="#home">
-          <span className="text-primary">K3</span>
-          <span className="text-secondary">Env's admin UI</span>
+          <span className="text-primary fw-bold">K3</span>Env's admin UI
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">

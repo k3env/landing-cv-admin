@@ -1,6 +1,6 @@
 import { chainRoute, createRoute } from "atomic-router";
-import { esTags } from "../../stores";
-import { PageTags } from "../../pages";
+import { esTags } from "~stores";
+import { PageTags } from "~pages";
 const RouteTags = createRoute();
 
 const RouteTagsLoaded = chainRoute({

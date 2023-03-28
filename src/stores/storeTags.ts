@@ -1,5 +1,5 @@
 import { createEffect, restore, forward } from "effector";
-import { Tag } from "../models";
+import { Tag } from "~models";
 
 const fx_getTags = createEffect<void, Tag[]>(() =>
   fetch("http://localhost:3000/api/v1/tags")

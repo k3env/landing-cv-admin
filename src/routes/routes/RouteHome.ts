@@ -1,5 +1,5 @@
 import { createRoute } from "atomic-router";
-import { PageHome } from "../../pages";
+import { PageHome } from "~pages";
 const RouteHome = createRoute();
 const path = "/";
 

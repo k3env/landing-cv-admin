@@ -1,6 +1,6 @@
 import { chainRoute, createRoute } from "atomic-router";
-import { PageProfile } from "../../pages";
-import { esImages, esProfile } from "../../stores";
+import { PageProfile } from "~pages";
+import { esImages, esProfile } from "~stores";
 const RouteProfile = createRoute();
 
 const RouteProfileLoaded = chainRoute({
