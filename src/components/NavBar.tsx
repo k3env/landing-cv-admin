@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "atomic-router-react";
-import { Home, Profile, Tags, Gallery } from "~routes";
+import { Home, Profile, Tags, Gallery, Projects } from "~routes";
 
 export function NavBar(props: {}) {
   return (
@@ -18,23 +18,27 @@ export function NavBar(props: {}) {
             <Nav.Link as={Link} to={Gallery.route}>
               Gallery
             </Nav.Link>
-            <Nav.Link as={Link} to={Profile.route}>
+            {/* <Nav.Link as={Link} to={Profile.route}>
               Profile
             </Nav.Link>
             <Nav.Link as={Link} to={Tags.route}>
               Tags
             </Nav.Link>
-            {/* <NavDropdown title="Dropdown" id="nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+            <Nav.Link as={Link} to={Projects.route}>
+              Projects
+            </Nav.Link> */}
+            <NavDropdown title="Models" id="nav-dropdown">
+              <NavDropdown.Item as={Link} to={Profile.route}>
+                Profile
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
+              <NavDropdown.Item as={Link} to={Tags.route}>
+                Tags
               </NavDropdown.Item>
-            </NavDropdown> */}
+              <NavDropdown.Item as={Link} to={Projects.route}>
+                Projects
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
