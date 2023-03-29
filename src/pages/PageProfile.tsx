@@ -1,10 +1,10 @@
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { useForm, SubmitHandler, UseFormRegisterReturn } from "react-hook-form";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useStore } from "effector-react";
 import { esProfile, esImages } from "~stores";
-import { Profile as ProfileRoute, Gallery as GalleryRoute } from "~routes";
-import { Loading } from "~components";
-import { File, Profile } from "~models";
+import { Profile as ProfileRoute } from "~routes";
+import { Loading, ImageSelect } from "~components";
+import { Profile } from "~models";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -90,8 +90,8 @@ export function ProfileForm(props: { profile: Profile }) {
             <ReactQuill
               theme="snow"
               value={form.watch("about_summary")}
-              onBlur={(range, src, editor) => {
-                form.setValue("about_summary", editor.getHTML());
+              onChange={(v, d, s, e) => {
+                form.setValue("about_summary", e.getHTML());
               }}
               style={{ minHeight: "17rem" }}
             />
@@ -175,47 +175,5 @@ export function ProfileForm(props: { profile: Profile }) {
         Save
       </Button>
     </Form>
-  );
-}
-
-function ImageSelect(props: {
-  imgs: File[];
-  reg: UseFormRegisterReturn<string>;
-  value: string;
-  label?: string;
-  usePreview: boolean;
-}) {
-  const { imgs, value, reg, label } = props;
-
-  const selectedImage = imgs.find((v) => v._id === value);
-  return (
-    <Row>
-      <Col sm={selectedImage && props.usePreview ? 6 : 12}>
-        <Form.Group className="mb-3">
-          <Form.Label>{label && label}</Form.Label>
-          <Form.Select {...reg}>
-            {imgs.map((v) => (
-              <option value={v._id} key={v._id}>
-                {v.name}
-              </option>
-            ))}
-          </Form.Select>
-          <Button
-            onClick={() => GalleryRoute.route.open()}
-            variant={"success"}
-            style={{ marginTop: "4px" }}
-          >
-            Add new image
-          </Button>
-        </Form.Group>
-      </Col>
-      {selectedImage && props.usePreview && (
-        <Col sm={6}>
-          <Card>
-            <Card.Img src={selectedImage.url} />
-          </Card>
-        </Col>
-      )}
-    </Row>
   );
 }
