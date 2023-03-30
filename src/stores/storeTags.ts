@@ -2,12 +2,12 @@ import { createEffect, restore, forward } from "effector";
 import { Tag } from "~models";
 
 const fx_getTags = createEffect<void, Tag[]>(() =>
-  fetch("http://localhost:3000/api/v1/tags")
+  fetch(`${import.meta.env.VITE_API_URL}/tags`)
     .then((r) => r.json())
     .then((td) => td.data)
 );
 const fx_addTag = createEffect<string, {}>((label: string) =>
-  fetch("http://localhost:3000/api/v1/tags", {
+  fetch(`${import.meta.env.VITE_API_URL}/tags`, {
     body: JSON.stringify({ label: label }),
     method: "POST",
     headers: {
@@ -18,7 +18,7 @@ const fx_addTag = createEffect<string, {}>((label: string) =>
     .then((td) => td)
 );
 const fx_deleteTag = createEffect<string, {}>((id: string) =>
-  fetch(`http://localhost:3000/api/v1/tags/${id}`, {
+  fetch(`${import.meta.env.VITE_API_URL}/tags/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

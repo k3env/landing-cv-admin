@@ -2,18 +2,18 @@ import { createEffect, forward, restore } from "effector";
 import { Project } from "~models";
 
 const fx_getProjects = createEffect<void, Project[]>(() =>
-  fetch(`http://localhost:3000/api/v1/projects`)
+  fetch(`${import.meta.env.VITE_API_URL}/projects`)
     .then((r) => r.json())
     .then((td) => td.data)
 );
 
 const fx_getProject = createEffect<string, Project>((id: string) =>
-  fetch(`http://localhost:3000/api/v1/projects/${id}`)
+  fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`)
     .then((r) => r.json())
     .then((td) => td.data)
 );
 const fx_updateProject = createEffect<Project, {}>((formData: Project) =>
-  fetch(`http://localhost:3000/api/v1/projects`, {
+  fetch(`${import.meta.env.VITE_API_URL}/projects`, {
     method: "POST",
     body: JSON.stringify(formData),
     headers: {
@@ -24,7 +24,7 @@ const fx_updateProject = createEffect<Project, {}>((formData: Project) =>
     .then((v) => v.data)
 );
 const fx_deleteProject = createEffect<string, {}>((id: string) =>
-  fetch(`http://localhost:3000/api/v1/projects/${id}`, { method: "DELETE" })
+  fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, { method: "DELETE" })
     .then((r) => r.json())
     .then((td) => td.data)
 );

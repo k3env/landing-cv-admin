@@ -29,7 +29,7 @@ function ProjectsGrid(props: { projects: Project[] }) {
 function ProjectCard(props: { project: Project }) {
   const [imgUrl, setUrl] = useState("https://placehold.co/600x400");
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/files/${props.project.cover}`)
+    fetch(`${import.meta.env.VITE_API_URL}/files/${props.project.cover}`)
       .then((r) => r.json())
       .then((v: { data: File }) => setUrl(v.data.url));
   }, []);

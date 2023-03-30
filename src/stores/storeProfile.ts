@@ -2,14 +2,14 @@ import { createEffect, restore } from "effector";
 import { Profile } from "~models";
 
 const fx_getProfile = createEffect<void, Profile>(() =>
-  fetch("http://localhost:3000/api/v1/profile/")
+  fetch(`${import.meta.env.VITE_API_URL}/profile/`)
     .then((v) => v.json())
     .then((p) => p.data)
 );
 
 const fx_updateProfile = createEffect<Partial<Profile>, any>(
   (profile: Partial<Profile>) =>
-    fetch("http://localhost:3000/api/v1/profile/", {
+    fetch(`${import.meta.env.VITE_API_URL}/profile/`, {
       method: "POST",
       body: JSON.stringify(profile),
       headers: {

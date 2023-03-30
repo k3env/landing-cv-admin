@@ -1,20 +1,20 @@
 import { createEffect, restore, forward } from "effector";
 import { File } from "~models";
 const fx_getImages = createEffect<void, File[]>(() =>
-  fetch(`http://localhost:3000/api/v1/files`)
+  fetch(`${import.meta.env.VITE_API_URL}/files`)
     .then((v) => v.json())
     .then((v) => v.data)
 );
 const fx_deleteImage = createEffect<string, void>((id: string) =>
-  fetch(`http://localhost:3000/api/v1/files/${id}`, { method: "DELETE" }).then(
-    (v) => console.log()
-  )
+  fetch(`${import.meta.env.VITE_API_URL}/files/${id}`, {
+    method: "DELETE",
+  }).then((v) => console.log())
 );
 const fx_addImage = createEffect<
   FormData,
   { acknowledged: boolean; insertedId: string }
 >((data: FormData) =>
-  fetch("http://localhost:3000/api/v1/files/", {
+  fetch(`${import.meta.env.VITE_API_URL}/files/`, {
     method: "POST",
     body: data,
     redirect: "follow",
