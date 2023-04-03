@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json package.json
 RUN yarn install
 COPY . /app
-RUN yarn run build --mode development
+RUN yarn run build
 
 FROM nginx:1.23.3
 COPY --from=build /app/dist /usr/share/nginx/html
