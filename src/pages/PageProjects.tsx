@@ -5,7 +5,7 @@ import { Loading } from "~components";
 import { File, Project } from "~models";
 import { Button, Card, Col, Row, Stack } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { Link } from "atomic-router-react";
+import { useLink } from "atomic-router-react";
 
 export function PageProjects(props: {}) {
   const projects = useStore(esProjects.store);
@@ -33,6 +33,7 @@ function ProjectCard(props: { project: Project }) {
       .then((r) => r.json())
       .then((v: { data: File }) => setUrl(v.data.url));
   }, []);
+  const projectLink = useLink(RouteSingle.route, { id: props.project._id });
   return (
     <Col sm={4}>
       <Card>
@@ -52,9 +53,8 @@ function ProjectCard(props: { project: Project }) {
             </Button>
             <Button
               // idk how to fix typecheck error, it works anyway
-              as={Link}
-              to={RouteSingle.route}
-              params={{ id: props.project._id }}
+              as="a"
+              href={projectLink}
               variant="warning"
             >
               Edit

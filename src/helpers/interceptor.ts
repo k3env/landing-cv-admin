@@ -15,7 +15,7 @@ export function retry<R = any, E = any>(
         if (err.response?.status === 401) {
           axios
             .post(
-              `${import.meta.env.AUTH_URL}/auth/refresh`,
+              `${import.meta.env.VITE_AUTH_URL}/auth/refresh`,
               {},
               { withCredentials: true }
             )
@@ -55,7 +55,7 @@ export async function retryAsync<R = any, E = any>(
     try {
       if (err.response?.status === 401) {
         axios.post(
-          `${import.meta.env.AUTH_URL}/auth/refresh`,
+          `${import.meta.env.VITE_AUTH_URL}/auth/refresh`,
           {},
           { withCredentials: true }
         );

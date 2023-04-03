@@ -1,7 +1,18 @@
+import { useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { Home } from "~routes";
+import { retry } from "../helpers/interceptor";
 
 export function PageLogin(props: {}) {
-  console.log(import.meta.env);
+  useEffect(() => {
+    retry(
+      "GET",
+      `${import.meta.env.VITE_AUTH_URL}/user/me`,
+      undefined,
+      () => Home.route.open(),
+      () => {}
+    );
+  }, []);
   return (
     <div>
       <h3>Login</h3>

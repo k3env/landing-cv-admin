@@ -6,7 +6,7 @@ import { retry } from "../helpers/interceptor";
 import { historyWatch } from "../routes/router";
 
 export function NavBar(props: {}) {
-  const [user, setUser] = useState<string | undefined>(undefined);
+  const [user, setUser] = useState<string | undefined>(undefined); // time to go to store, maybe
   const [path, setPath] = useState<string>("");
 
   historyWatch((u) => setPath(u.location.pathname));
@@ -17,7 +17,7 @@ export function NavBar(props: {}) {
       `${import.meta.env.VITE_AUTH_URL}/user/me`,
       undefined,
       (rUser) => setUser(rUser.data.username),
-      () => Login.route.open()
+      (err) => Login.route.open()
     );
   }, [path]);
   return (
