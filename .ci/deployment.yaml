@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: personal
+spec:
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+        - name: ui
+          image: k3env/landing-cv-admin:latest
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 80
