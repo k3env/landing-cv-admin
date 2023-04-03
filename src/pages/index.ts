@@ -5,6 +5,7 @@ import { PageProfile } from "./PageProfile";
 import { PageTags } from "./PageTags";
 import { PageProjects } from "./PageProjects";
 import { PageProject } from "./PageProject";
+import { PageLogin } from "./PageLogin";
 
 export {
   PageNotFound,
@@ -14,4 +15,5 @@ export {
   PageTags,
   PageProjects,
   PageProject,
+  PageLogin,
 };

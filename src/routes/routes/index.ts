@@ -4,5 +4,6 @@ import * as Profile from "./RouteProfile";
 import * as Tags from "./RouteTags";
 import * as Projects from "./RouteProjects";
 import * as Project from "./RouteProject";
+import * as Login from "./RouteLogin";
 
-export { Home, Gallery, Profile, Tags, Projects, Project };
+export { Home, Gallery, Profile, Tags, Projects, Project, Login };
