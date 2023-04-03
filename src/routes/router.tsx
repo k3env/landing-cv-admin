@@ -38,10 +38,17 @@ const routes = [
   { path: Login.path, route: Login.route },
 ];
 
+import { createRouterControls } from "atomic-router";
+
+const controls = createRouterControls();
+
 const history = createBrowserHistory();
 const router = createHistoryRouter({
   routes: routes,
+  controls: controls,
 });
 router.setHistory(history);
 
-export { RoutesView, router };
+const historyWatch = history.listen;
+
+export { RoutesView, router, historyWatch, controls };
