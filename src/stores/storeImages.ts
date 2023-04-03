@@ -1,26 +1,27 @@
 import { createEffect, restore, forward } from "effector";
 import { File } from "~models";
+import { retryAsync } from "../helpers/interceptor";
 const fx_getImages = createEffect<void, File[]>(() =>
   fetch(`${import.meta.env.VITE_API_URL}/files`)
     .then((v) => v.json())
     .then((v) => v.data)
 );
 const fx_deleteImage = createEffect<string, void>((id: string) =>
-  fetch(`${import.meta.env.VITE_API_URL}/files/${id}`, {
-    method: "DELETE",
-  }).then((v) => console.log())
+  retryAsync(
+    "DELETE",
+    `${import.meta.env.VITE_API_URL}/files/${id}`,
+    undefined
+  ).then((r) => r.data)
 );
 const fx_addImage = createEffect<
   FormData,
   { acknowledged: boolean; insertedId: string }
 >((data: FormData) =>
-  fetch(`${import.meta.env.VITE_API_URL}/files/`, {
-    method: "POST",
-    body: data,
-    redirect: "follow",
-  })
-    .then((r) => r.json())
-    .then((v) => v.data)
+  retryAsync<{ acknowledged: boolean; insertedId: string }>(
+    "POST",
+    `${import.meta.env.VITE_API_URL}/files/`,
+    data
+  ).then((r) => r.data)
 );
 
 const $images = restore(fx_getImages, []);

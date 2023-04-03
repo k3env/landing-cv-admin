@@ -1,5 +1,6 @@
 import { createEffect, restore } from "effector";
 import { Profile } from "~models";
+import { retryAsync } from "../helpers/interceptor";
 
 const fx_getProfile = createEffect<void, Profile>(() =>
   fetch(`${import.meta.env.VITE_API_URL}/profile/`)
@@ -9,19 +10,14 @@ const fx_getProfile = createEffect<void, Profile>(() =>
 
 const fx_updateProfile = createEffect<Partial<Profile>, any>(
   (profile: Partial<Profile>) =>
-    fetch(`${import.meta.env.VITE_API_URL}/profile/`, {
-      method: "POST",
-      body: JSON.stringify(profile),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((v) => v.json())
+    retryAsync(
+      "POST",
+      `${import.meta.env.VITE_API_URL}/profile/`,
+      profile
+    ).then((r) => r.data)
 );
 
 const $profile = restore(fx_getProfile, null);
-// $profile.on(fx_updateProfile.doneData, (s, p) => {
-//   console.log(p);
-// });
 $profile.on(fx_getProfile.doneData, (s, p) => {
   return p;
 });

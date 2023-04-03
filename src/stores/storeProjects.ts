@@ -1,5 +1,6 @@
 import { createEffect, forward, restore } from "effector";
 import { Project } from "~models";
+import { retryAsync } from "../helpers/interceptor";
 
 const fx_getProjects = createEffect<void, Project[]>(() =>
   fetch(`${import.meta.env.VITE_API_URL}/projects`)
@@ -13,20 +14,16 @@ const fx_getProject = createEffect<string, Project>((id: string) =>
     .then((td) => td.data)
 );
 const fx_updateProject = createEffect<Project, {}>((formData: Project) =>
-  fetch(`${import.meta.env.VITE_API_URL}/projects`, {
-    method: "POST",
-    body: JSON.stringify(formData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((v) => v.json())
-    .then((v) => v.data)
+  retryAsync("POST", `${import.meta.env.VITE_API_URL}/projects`, formData).then(
+    (v) => v.data
+  )
 );
 const fx_deleteProject = createEffect<string, {}>((id: string) =>
-  fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, { method: "DELETE" })
-    .then((r) => r.json())
-    .then((td) => td.data)
+  retryAsync(
+    "DELETE",
+    `${import.meta.env.VITE_API_URL}/projects/${id}`,
+    {}
+  ).then((d) => d.data)
 );
 
 const $project = restore(fx_getProject, null);

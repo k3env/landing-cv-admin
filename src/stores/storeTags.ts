@@ -1,5 +1,6 @@
 import { createEffect, restore, forward } from "effector";
 import { Tag } from "~models";
+import { retryAsync } from "../helpers/interceptor";
 
 const fx_getTags = createEffect<void, Tag[]>(() =>
   fetch(`${import.meta.env.VITE_API_URL}/tags`)
@@ -7,25 +8,16 @@ const fx_getTags = createEffect<void, Tag[]>(() =>
     .then((td) => td.data)
 );
 const fx_addTag = createEffect<string, {}>((label: string) =>
-  fetch(`${import.meta.env.VITE_API_URL}/tags`, {
-    body: JSON.stringify({ label: label }),
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((r) => r.json())
-    .then((td) => td)
+  retryAsync("POST", `${import.meta.env.VITE_API_URL}/tags`, { label }).then(
+    (r) => r.data
+  )
 );
 const fx_deleteTag = createEffect<string, {}>((id: string) =>
-  fetch(`${import.meta.env.VITE_API_URL}/tags/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((r) => r.json())
-    .then((td) => td)
+  retryAsync(
+    "DELETE",
+    `${import.meta.env.VITE_API_URL}/tags/${id}`,
+    undefined
+  ).then((d) => d.data)
 );
 
 const $tags = restore(fx_getTags, []);
