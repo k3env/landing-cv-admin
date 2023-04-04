@@ -6,5 +6,5 @@ COPY . /app
 RUN yarn run build --mode development
 
 FROM nginx:1.23.3
-COPY default.conf /etc/nginx/conf.d/default.conf
+# COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
