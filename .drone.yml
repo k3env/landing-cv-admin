@@ -17,6 +17,12 @@ steps:
       tags:
         - ${DRONE_COMMIT_SHA:0:8}
         - latest
+  - name: deploy
+    image: ghcr.io/bh90210/dron8s:latest
+    settings:
+      yaml: .ci/deployment.yaml
+      tag: ${DRONE_COMMIT_SHA:0:8}
+      ns: landing-dev
   - name: send notification
     image: appleboy/drone-telegram
     settings:
@@ -48,12 +54,16 @@ steps:
       password:
         from_secret: DOCKER_PASSWORD
       repo: ${DRONE_REPO}
-      dockerfile: Dockerfile.production
       tags:
         - ${DRONE_TAG}
         - stable
         - latest
-
+  - name: deploy
+    image: ghcr.io/bh90210/dron8s:latest
+    settings:
+      yaml: .ci/deployment.yaml
+      tag: ${DRONE_TAG}
+      ns: landing
   - name: send notification
     image: appleboy/drone-telegram
     settings:
@@ -69,31 +79,3 @@ steps:
 trigger:
   event:
     - tag
----
-kind: pipeline
-name: deploy
-type: kubernetes
-dns_config:
-  options:
-    - name: ndots
-      value: "1"
-steps:
-  - name: deploy
-    image: ghcr.io/bh90210/dron8s:latest
-    settings:
-      yaml: .ci/deployment.yaml
-  - name: send notification
-    image: appleboy/drone-telegram
-    settings:
-      token:
-        from_secret: TG_TOKEN
-      to:
-        from_secret: TG_CHANNEL
-      message_file: .ci/deploy-message.tg.tpl
-    when:
-      status:
-        - success
-        - failure
-trigger:
-  event:
-    - promote
