@@ -28,6 +28,7 @@ export function PageProfile(props: {}) {
       experience: "",
       phone: "",
       isFreelance: false,
+      lookForJob: "not-interested",
     };
     return <ProfileForm profile={profile} />;
   }
@@ -161,6 +162,17 @@ export function ProfileForm(props: { profile: Profile }) {
               placeholder="Address"
               {...form.register("address")}
             />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group className="mb-3">
+            <Form.Label>Looking for job</Form.Label>
+            <Form.Select {...form.register("lookForJob")}>
+              <option>Select one</option>
+              <option value="active">Active</option>
+              <option value="passive">Open to offers</option>
+              <option value="not-interested">Not interested</option>
+            </Form.Select>
           </Form.Group>
         </Col>
       </Row>
