@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: admin
-  namespace: "{{.ns}}"
+  namespace: "$.ns"
 spec:
   selector:
     matchLabels:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: admin
-          image: k3env/landing-cv-admin:{{.tag}}
+          image: k3env/landing-cv-admin:$.tag
           resources:
             limits:
               memory: "128Mi"
