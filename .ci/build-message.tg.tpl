@@ -1,4 +1,4 @@
-Build #{{build.number}} `k3env/landing-cv` finished
+Build #{{build.number}} `k3env/landing-admin` finished
 
 Message: `{{commit.message}}`
 
