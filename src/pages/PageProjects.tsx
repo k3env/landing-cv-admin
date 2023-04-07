@@ -1,6 +1,10 @@
 import { useStore } from "effector-react";
 import { esProjects } from "~stores";
-import { Project as RouteSingle, Projects as Route } from "~routes";
+import {
+  Project as RouteSingle,
+  Projects as Route,
+  ProjectNew as RouteNew,
+} from "~routes";
 import { Loading } from "~components";
 import { File, Project } from "~models";
 import { Button, Card, Col, Row, Stack } from "react-bootstrap";
@@ -22,6 +26,11 @@ function ProjectsGrid(props: { projects: Project[] }) {
       {projects.map((p) => (
         <ProjectCard key={p._id} project={p} />
       ))}
+      <Col>
+        <Button variant="success" onClick={() => RouteNew.route.open()}>
+          Add new
+        </Button>
+      </Col>
     </Row>
   );
 }
@@ -51,12 +60,7 @@ function ProjectCard(props: { project: Project }) {
             >
               Delete
             </Button>
-            <Button
-              // idk how to fix typecheck error, it works anyway
-              as="a"
-              href={projectLink}
-              variant="warning"
-            >
+            <Button as="a" href={projectLink} variant="warning">
               Edit
             </Button>
           </Stack>

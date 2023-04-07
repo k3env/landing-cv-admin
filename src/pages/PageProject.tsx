@@ -1,7 +1,7 @@
 import { useStore } from "effector-react";
 import { esImages, esProjects, esTags } from "~stores";
 import { Project } from "../models/Project.model";
-import { Project as Route, Projects } from "~routes";
+import { Project as Route, Projects, ProjectNew as New } from "~routes";
 import { Loading } from "../components/Loading";
 import {
   Badge,
@@ -28,6 +28,19 @@ export function PageProject(props: {}) {
   const isLoaded = useStore(Route.loaded.$isOpened);
   if (!isLoaded || project === null) return <Loading />;
   return <ProjectForm project={project} />;
+}
+
+export function PageProjectNew(props: {}) {
+  const isLoaded = useStore(New.loaded.$isOpened);
+  const empty: Project = {
+    cover: "",
+    description: "",
+    images: [],
+    tags: [],
+    title: "",
+  };
+  if (!isLoaded) return <Loading />;
+  return <ProjectForm project={empty} />;
 }
 
 function ProjectForm(props: { project: Project }) {
