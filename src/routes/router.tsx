@@ -9,6 +9,7 @@ import {
   Projects,
   Project,
   Login,
+  ProjectNew,
 } from "./routes";
 
 import { PageNotFound } from "~pages";
@@ -20,6 +21,7 @@ const RoutesView = createRoutesView({
     { route: Profile.route, view: Profile.view },
     { route: Tags.route, view: Tags.view },
     { route: Projects.route, view: Projects.view },
+    { route: ProjectNew.route, view: ProjectNew.view },
     { route: Project.route, view: Project.view },
     { route: Login.route, view: Login.view },
   ],
@@ -34,6 +36,7 @@ const routes = [
   { path: Profile.path, route: Profile.route },
   { path: Tags.path, route: Tags.route },
   { path: Projects.path, route: Projects.route },
+  { path: ProjectNew.path, route: ProjectNew.route },
   { path: Project.path, route: Project.route },
   { path: Login.path, route: Login.route },
 ];
